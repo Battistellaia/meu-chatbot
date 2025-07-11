@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Chat com IA</title></head>
+<body>
+  <h1>Pergunte ao Bot</h1>
+  <input id="pergunta" placeholder="Digite aqui">
+  <button onclick="enviar()">Enviar</button>
+  <div id="resposta"></div>
+
+  <script>
+    async function enviar() {
+      const pergunta = document.getElementById("pergunta").value;
+      document.getElementById("resposta").innerText = "Pensando...";
+      const resp = await fetch("https://SEU-WEBHOOK.ngrok-free.app/webhook/pergunta-gpt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pergunta })
+      });
+      const data = await resp.json();
+      document.getElementById("resposta").innerText = data.resposta || "Erro na resposta.";
+    }
+  </script>
+</body>
+</html>
