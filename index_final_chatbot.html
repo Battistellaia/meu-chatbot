@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat com IA</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
+    h1 { font-size: 24px; }
+    input, button { padding: 10px; font-size: 16px; }
+    #resposta { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Pergunte ao Bot</h1>
+  <input id="pergunta" placeholder="Digite aqui">
+  <button onclick="enviar()">Enviar</button>
+  <div id="resposta"></div>
+
+  <script>
+    async function enviar() {
+      const pergunta = document.getElementById("pergunta").value;
+      document.getElementById("resposta").innerText = "Pensando...";
+
+      try {
+        const resp = await fetch("https://n8n.battistellaia.site/webhook/chatbot-site-webhook", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pergunta })
+        });
+
+        const data = await resp.json();
+        document.getElementById("resposta").innerText = data.resposta || "Erro na resposta.";
+      } catch (e) {
+        document.getElementById("resposta").innerText = "Erro ao conectar com o servidor.";
+        console.error(e);
+      }
+    }
+  </script>
+</body>
+</html>
