@@ -11,7 +11,7 @@
     async function enviar() {
       const pergunta = document.getElementById("pergunta").value;
       document.getElementById("resposta").innerText = "Pensando...";
-      const resp = await fetch("https://SEU-WEBHOOK.ngrok-free.app/webhook/pergunta-gpt", {
+      const resp = await fetch("https://n8n.battistellaia.site/webhook/30e8c8da-cf41-4eeb-a0c3-8efa1d14a997", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pergunta })
